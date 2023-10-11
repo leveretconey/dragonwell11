@@ -327,6 +327,8 @@ public interface JavaLangAccess {
 
     void wispBooted();
 
+    void setWispThreadWrapper(Thread carrierThread, Thread wispThreadWrapper);
+
     /**
      * Set the value of {@code thread.resourceContainer}
      *

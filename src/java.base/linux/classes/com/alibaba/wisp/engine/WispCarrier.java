@@ -245,6 +245,7 @@ final class WispCarrier implements Comparable<WispCarrier> {
      * hook for yield wispTask
      */
     private void runWispTaskEpilog() {
+        WispEngine.JLA.setWispThreadWrapper(thread, null);
         processPendingTimer();
         processYield();
     }
@@ -419,6 +420,7 @@ final class WispCarrier implements Comparable<WispCarrier> {
 
         WispTask from = current;
         current = task;
+        WispEngine.JLA.setWispThreadWrapper(thread, task.getThreadWrapper());
         counter.incrementSwitchCount();
         switchTimestamp = WispEngine.getNanoTime();
         assert !isInCritical;

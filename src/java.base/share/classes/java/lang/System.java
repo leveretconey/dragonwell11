@@ -2261,6 +2261,11 @@ public final class System {
             }
 
             @Override
+            public void setWispThreadWrapper(Thread carrierThread, Thread wispThreadWrapper) {
+                carrierThread.setWispThreadWrapper(wispThreadWrapper);
+            }
+
+            @Override
             public void wispBooted() {
                 Thread.wispBooted();
             }

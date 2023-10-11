@@ -235,6 +235,11 @@ class Thread implements Runnable {
      */
     AbstractResourceContainer inheritedResourceContainer;
 
+    /**
+     * The wisp thread wrapper that will be returned by {@code Thread.currentThread()}
+     */
+    Thread wispThreadWrapper;
+
 
 
     /**
@@ -299,6 +304,15 @@ class Thread implements Runnable {
     }
 
     /**
+     * sets the wispThreadWrapper that will be returned by {@code Thread.currentThread()}
+     * @param  wispThreadWrapper
+     *         the wispThreadWrapper
+     */
+    void setWispThreadWrapper(Thread wispThreadWrapper) {
+        this.wispThreadWrapper = wispThreadWrapper;
+    }
+
+    /**
      * initialize the coroutine support of the thread
      */
     private void initializeCoroutineSupport() {
@@ -329,10 +343,8 @@ class Thread implements Runnable {
      * @return  the currently executing thread.
      */
     public static Thread currentThread() {
-        if (WEA != null) {
-            return WEA.getCurrentTask().getThreadWrapper();
-        }
-        return currentThread0();
+        Thread thread = currentThread0();
+        return thread.wispThreadWrapper == null ? thread : thread.wispThreadWrapper;
     }
 
     /**
